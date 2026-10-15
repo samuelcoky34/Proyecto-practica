@@ -1,16 +1,35 @@
-# Calculadoras_Calificaciones - Versión Base
+class CalculadoraNotas:
+    def __init__(self):
+        self.notas = []
 
-def pedir_notas(posicion):
-    while True:
-        nota = float(input(f"Introduce la {posicion} nota entre (1 a 10): "))
-        if 1 <= nota <= 10:
-            return nota
-        print("La nota debe estar entre 1 al 10. Por favor vuelve a intentarlo")
+    def pedir_nota(self, posicion):
+        while True:
+            try:
+                nota = float(input(f"Introduce la {posicion} entre (1 al 10) por favor para calcular el promedio de notas: "))
+                if 1 <= nota <= 10:
+                    self.notas.append(nota)
+                    break
+                else:
+                    print("La nota debe ser entre 1 al 10. Intentalo de nuevo por favor")
+            except ValueError:
+                print("Error: Ingesaste texto de cadena o numero flotantes. Tienes que poner numero entero (int)")
 
-nota1 = pedir_notas("primera")
-nota2 = pedir_notas("segunda")
-nota3 = pedir_notas("tercera")
+    def calcular_promedio(self):
+        if not self.notas:
+            return 0
+        return sum(self.notas) / len(self.notas)
+    
+    def mostrar_resultado(self):
+        resultado = self.calcular_promedio()
+        print(f"\nEl resultado final es {resultado:.2f}")
 
-promedio = (nota1 + nota2 + nota3) / 3
+if __name__ == "__main__":
+    calculadora = CalculadoraNotas()
 
-print(f"/nEl promedio total es: {promedio:.2f}")
+    calculadora.pedir_nota("Primera")
+    calculadora.pedir_nota("Segunda")
+    calculadora.pedir_nota("Tercera")
+    calculadora.pedir_nota("Cuarta")
+    calculadora.pedir_nota("Quinta")
+
+    calculadora.mostrar_resultado()
